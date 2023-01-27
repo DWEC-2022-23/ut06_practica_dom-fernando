@@ -49,18 +49,71 @@ let addItemButton = "";
 
  function crearbotones(event) {
   // Realiza las acciones de los botones subir, borrar y bajar para los elementos de la lista
+let aux= "";
+  
+  
+  for (let i = 0; i < document.getElementsByTagName("li").length; i++) {
+    if (event.target.parentElement==document.getElementsByTagName("li")[i] && event.target.innerText=="subir" && i!=0) {
+      aux=document.getElementsByTagName("li")[i-1].childNodes[0].nodeValue;
+      document.getElementsByTagName("li")[i-1].childNodes[0].nodeValue=document.getElementsByTagName("li")[i].childNodes[0].nodeValue;
+      document.getElementsByTagName("li")[i].childNodes[0].nodeValue=aux;
+      
+      
+    }
+
+    if (event.target.parentElement==document.getElementsByTagName("li")[i] && event.target.innerText=="bajar" && i!=document.getElementsByTagName("li").length-1) {
+      aux=document.getElementsByTagName("li")[i+1].childNodes[0].nodeValue;
+      document.getElementsByTagName("li")[i+1].childNodes[0].nodeValue=document.getElementsByTagName("li")[i].childNodes[0].nodeValue;
+      document.getElementsByTagName("li")[i].childNodes[0].nodeValue=aux;
+      
+      
+    }
+
+    if (event.target.parentElement==document.getElementsByTagName("li")[i] && event.target.innerText=="borrar" ) {
+      
+      
+      document.getElementsByTagName("li")[i].remove();
+      
+      
+    }
+    
+  }
+
  }
 
  function MostrarOcultarLista(){
   // Muestra u oculta la información de las cosas que son violeta (listDiv)
+  //document.getElementById("parrafos").classList.toggle("inverso");
+    if(toggleList.innerText=="Ocultar lista"){
+        toggleList.innerText="Mostrar lista";
+        listDiv.style.display = "none";
+    }else{
+        toggleList.innerText="Ocultar lista";
+        listDiv.style.display = "block";
+    }
  }
  function CambiarTextoLista(){
+  
   //Modifica  el texto de la lista (descriptionP) con el valor del input (descriptionInput).
   // Inicialmente COSAS QUE SON VIOLETA
+
+  descriptionP.innerText=descriptionInput.value;
  }
  function AñadirElemento(){
   //Añade un nuevo elemento a la lista con el valor del input (addItemInput). 
   //Recuerda que el elemento tendrá que tener sus botones de subir, bajar y borrar.
+  const node=document.createElement("li");
+  const textNode=document.createTextNode(addItemInput.value);
+
+  node.appendChild(textNode);
+
+  document.getElementsByTagName("ul")[0].appendChild(node);
+
+
+    attachListItemButtons(lis[lis.length-1]);
+
+
+  
  }
 
 
